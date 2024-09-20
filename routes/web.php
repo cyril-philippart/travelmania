@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Trip;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,5 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('/voyages')->name('voyage.')->group(function() {
+    Route::get('/', function () {
+        return Trip::all();
+    })->name('index');
+    
+    Route::get('/{slug}', function (string $slug) {
+        $trip = Trip::where('title', $slug)->first();
+        return $trip;
+    })->name('show');
+});
+
+
+
 
 Route::get('/dashboard')->uses([\App\Http\Controllers\DashboardController::class, 'index']);
