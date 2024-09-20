@@ -18,15 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/voyages')->name('voyage.')->group(function() {
-    Route::get('/', function () {
-        return Trip::all();
-    })->name('index');
-    
-    Route::get('/{slug}', function (string $slug) {
-        $trip = Trip::where('title', $slug)->first();
-        return $trip;
-    })->name('show');
+Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\TripController::class)->group(function() {
+    Route::get('/', 'index')->name('index');
+    Route::get('/{slug}', 'show')->name('show');
 });
 
 
