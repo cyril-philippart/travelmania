@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateTripRequest;
 use App\Http\Requests\TripFilterRequest;
 use Illuminate\Http\Request;
 use App\Models\Trip;
@@ -11,12 +12,24 @@ use Illuminate\Support\Facades\Validator;
 
 class TripController extends Controller
 {
-    public function index(TripFilterRequest $request): View
+
+    public function create(): View
+    {
+        return view('trip.create');
+    }
+    
+    public function store(CreateTripRequest $request)
+    {
+        $trip = Trip::create($request->validated());
+        return redirect()->route('voyage.show', ['trip' => $trip->title])->with('success', 'Voyage créé avec succès');
+    }
+
+    public function index(): View
     {
         return view('trip.index', [
             'trips' => Trip::all()
         ]);
-    }
+    } 
 
     public function show(Trip $trip): View
     {
@@ -24,6 +37,4 @@ class TripController extends Controller
             'trip' => $trip
         ]);
     }
-
-
 }

@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\TripController::class)->group(function() {
     Route::get('/', 'index')->name('index');
+    Route::get('/new', 'create')->name('create');
+    Route::post('/new', 'store');
     Route::get('/{trip:title}', 'show')->name('show');
 });
 
