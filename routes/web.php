@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\TripController::class)->group(function() {
     Route::get('/', 'index')->name('index');
-    Route::get('/{slug}', 'show')->name('show');
+    Route::get('/{trip:title}', 'show')->name('show');
 });
 
 
