@@ -13,4 +13,9 @@ class Trips extends Model
         'title',
         'slug',
     ];
+
+    public function steps()
+    {
+        return $this->hasMany(Steps::class);
+    }
 }
