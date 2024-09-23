@@ -1,5 +1,5 @@
 @extends('base')
-@section('title', 'Créer un Voyage')
+@section('title', 'Modifier un Voyage')
 @section('content')
     @include('trip.form')
 @endsection

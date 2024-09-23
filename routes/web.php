@@ -22,6 +22,8 @@ Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\Tri
     Route::get('/', 'index')->name('index');
     Route::get('/new', 'create')->name('create');
     Route::post('/new', 'store');
+    Route::get('/{trip:title}/edit', 'edit')->name('edit');
+    Route::post('/{trip:title}/edit', 'update');
     Route::get('/{trip:title}', 'show')->name('show');
 });
 
