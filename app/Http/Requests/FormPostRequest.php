@@ -22,7 +22,7 @@ class FormPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'unique:trip'],
+            'title' => ['required', 'string', 'unique:trips']
         ];
     }
 }
