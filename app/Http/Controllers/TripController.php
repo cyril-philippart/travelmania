@@ -36,7 +36,7 @@ class TripController extends Controller
     public function update(Trips $trip, FormTripRequest $request) 
     {
         $trip->update($request->validated());
-        return redirect()->route('voyage.show', ['trip' => $trip->title])->with('success', 'Voyage modifié avec succès');
+        return redirect()->route('voyage.index', ['trip' => $trip->slug])->with('success', 'Voyage modifié avec succès');
     }
 
     public function index(): View

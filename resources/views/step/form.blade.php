@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" class="w-50 mx-auto">
     @csrf
     <input type="hidden" name="trips_id" value="{{ $trip->id }}">
     <div class="form-group mb-3">
@@ -50,7 +50,7 @@
             {{ $message }}
         @enderror
     </div>
-    <button class="btn btn-primary">
+    <button class="btn btn-dark">
         @if ($step->id)
             Modifier
         @else
