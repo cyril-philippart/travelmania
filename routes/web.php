@@ -14,13 +14,13 @@ Route::post('register', [\App\Http\Controllers\AuthController::class, 'goRegiste
 
 Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\TripController::class)->group(function() {
     Route::get('/', 'index')->name('index');
+    Route::get('/{trip:slug}', 'show')->name('show');
     
     Route::middleware('auth')->group(function() {
         Route::get('/new', 'create')->name('create');
         Route::post('/new', 'store');
         Route::get('/{trip:slug}/edit', 'edit')->name('edit');
         Route::post('/{trip:slug}/edit', 'update');
-        Route::get('/{trip:slug}', 'show')->name('show');
         Route::delete('/{trip:slug}', 'destroy')->name('destroy');
     });
 });

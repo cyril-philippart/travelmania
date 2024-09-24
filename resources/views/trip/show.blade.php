@@ -20,7 +20,9 @@
                             <th>Siège</th>
                             <th>Porte</th>
                             <th>Enregistrement des bagages</th>
-                            <th>Actions</th>
+                            @auth
+                                <th>Actions</th>
+                            @endauth
                         </tr>
                     </thead>
                     <tbody>                    
@@ -32,21 +34,25 @@
                             <td>{{ $step->seat }}</td>
                             <td>{{ $step->gate }}</td>
                             <td>{{ $step->baggage_drop }}</td>
-                            <td>
-                                <a class="btn btn-warning btn-sm" href="{{ route('etape.edit', ['trip' => $trip->id, 'step' => $step->id]) }}">Modifier</a>
-                                <form action="{{ route('etape.destroy', ['trip' => $trip->id, 'step' => $step->id]) }}" method="post" class="d-inline">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette étape ?')">Supprimer</button>
-                                </form>
-                            </td>
+                            @auth
+                                <td>
+                                    <a class="btn btn-warning btn-sm" href="{{ route('etape.edit', ['trip' => $trip->id, 'step' => $step->id]) }}">Modifier</a>
+                                    <form action="{{ route('etape.destroy', ['trip' => $trip->id, 'step' => $step->id]) }}" method="post" class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette étape ?')">Supprimer</button>
+                                    </form>
+                                </td> 
+                            @endauth
                         </tr>      
                     </tbody>
                 </table>
             </div>
         </div>
     @endforeach
-    <div class="text-center mt-4">
-        <a class="btn btn-success" href="{{ route('etape.create', ['trip' => $trip->id]) }}">Ajouter une étape</a>
-    </div>
+    @auth
+        <div class="text-center mt-4">
+            <a class="btn btn-success" href="{{ route('etape.create', ['trip' => $trip->id]) }}">Ajouter une étape</a>
+        </div>
+    @endauth
 @endsection
