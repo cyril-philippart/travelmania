@@ -29,6 +29,8 @@ Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\Tri
 Route::prefix('/etapes')->name('etape.')->controller(\App\Http\Controllers\StepsController::class)->group(function() {
     Route::get('/new', 'create')->name('create');
     Route::post('/new', 'store');
+    Route::get('/{step:id}/edit', 'edit')->name('edit');
+    Route::post('/{step:id}/edit', 'update');
 });
 
 

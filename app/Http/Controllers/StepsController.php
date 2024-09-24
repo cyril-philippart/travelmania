@@ -25,13 +25,24 @@ class StepsController extends Controller
     {
         $validatedData = $request->validated();
         $step = Steps::create($validatedData);
-        return redirect()->back()->with('success', 'Étape créé avec succès');
+        $trip = $step->trips;
+        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Étape modifié avec succès');
     }
 
-    public function show(Steps $step): View
+    public function edit(Steps $step) 
     {
-        return view('step.show', [
-            'step' => $step
+        $trip = $step->trips;
+        return view('step.edit' , [
+            'step' => $step,
+            'trip' => $trip
         ]);
     }
+
+    public function update(Steps $step, FormStepRequest $request) 
+    {
+        $step->update($request->validated());
+        $trip = $step->trips;
+        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Étape modifié avec succès');
+    }
+
 }
