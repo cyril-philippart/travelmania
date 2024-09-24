@@ -9,6 +9,8 @@ Route::get('/', function () {
 Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
 Route::delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('auth.logout');
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'goLogin']);
+Route::get('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
+Route::post('register', [\App\Http\Controllers\AuthController::class, 'goRegister'])->name('register.goRegister');;
 
 Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\TripController::class)->group(function() {
     Route::get('/', 'index')->name('index');

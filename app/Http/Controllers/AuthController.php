@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -31,5 +34,23 @@ class AuthController extends Controller
             'email' => 'Identifiants incorrects'
         ])->onlyInput('email');
 
+    }
+
+    public function register()
+    {
+        return view('auth.register');
+    }
+
+    public function goRegister(RegisterRequest $request)
+    {
+        // Crée un nouvel utilisateur
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        Auth::login($user);
+
+        return redirect()->route('voyage.index');
     }
 }
