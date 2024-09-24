@@ -48,8 +48,10 @@ class TripController extends Controller
 
     public function show(Trips $trip): View
     {
+        $steps = $trip->steps;
         return view('trip.show', [
-            'trip' => $trip
+            'trip' => $trip,
+            'steps' => $steps
         ]);
     }
 }

@@ -1,6 +1,5 @@
 <form action="" method="post">
     @csrf
-    @dump($trip)
     <input type="hidden" name="trips_id" value="{{ $trip->id }}">
     <div class="form-group mb-3">
         <label class="form-label">Type de transport :</label>

@@ -27,4 +27,11 @@ class StepsController extends Controller
         $step = Steps::create($validatedData);
         return redirect()->back()->with('success', 'Étape créé avec succès');
     }
+
+    public function show(Steps $step): View
+    {
+        return view('step.show', [
+            'step' => $step
+        ]);
+    }
 }

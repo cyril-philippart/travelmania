@@ -17,6 +17,7 @@ class Steps extends Model
         'seat',
         'gate',
         'baggage_drop',
+        'trips_id'
     ];
 
     public function trips()
