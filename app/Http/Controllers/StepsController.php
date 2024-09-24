@@ -26,7 +26,7 @@ class StepsController extends Controller
         $validatedData = $request->validated();
         $step = Steps::create($validatedData);
         $trip = $step->trips;
-        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Étape modifié avec succès');
+        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Étape ajoutée avec succès');
     }
 
     public function edit(Steps $step) 
@@ -42,7 +42,14 @@ class StepsController extends Controller
     {
         $step->update($request->validated());
         $trip = $step->trips;
-        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Étape modifié avec succès');
+        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Étape modifiée avec succès');
+    }
+
+    public function destroy(Steps $step) 
+    {
+        $step->delete();
+        $trip = $step->trips;
+        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Étape supprimée avec succès');
     }
 
 }

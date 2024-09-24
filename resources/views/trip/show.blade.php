@@ -12,6 +12,12 @@
                 <p>{{ $step->seat }}</p>
                 <p>{{ $step->gate }}</p>
                 <p>{{ $step->baggage_drop }}</p>
+                <a class="btn btn-primary" href="{{ route('etape.edit', ['trip' => $trip->id, 'step' => $step->id]) }}">Modifier</a>
+                <form action="{{ route('etape.destroy', ['trip' => $trip->id, 'step' => $step->id]) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button class="btn btn-danger">Supprimer</button>
+                </form> 
             </div>
             
         @endforeach

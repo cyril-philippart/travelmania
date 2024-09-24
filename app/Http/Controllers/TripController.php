@@ -54,4 +54,10 @@ class TripController extends Controller
             'steps' => $steps
         ]);
     }
+
+    public function destroy(Trips $trip) 
+    {
+        $trip->delete();
+        return redirect()->route('voyage.index')->with('success', 'Voyage supprimé avec succès');
+    }
 }

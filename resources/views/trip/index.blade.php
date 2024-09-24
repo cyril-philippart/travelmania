@@ -9,5 +9,10 @@
                 <a href="{{ route('voyage.show', ['trip' => $trip->slug])}}">Voir le voyage</a>
             </p>
         </div>
+        <form action="{{ route('voyage.destroy', ['trip' => $trip->slug]) }}" method="post">
+            @csrf
+            @method('delete')
+            <button class="btn btn-danger">Supprimer</button>
+        </form> 
     @endforeach
 @endsection

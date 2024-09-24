@@ -24,6 +24,7 @@ Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\Tri
     Route::get('/{trip:slug}/edit', 'edit')->name('edit');
     Route::post('/{trip:slug}/edit', 'update');
     Route::get('/{trip:slug}', 'show')->name('show');
+    Route::delete('/{trip:slug}', 'destroy')->name('destroy');
 });
 
 Route::prefix('/etapes')->name('etape.')->controller(\App\Http\Controllers\StepsController::class)->group(function() {
@@ -31,6 +32,7 @@ Route::prefix('/etapes')->name('etape.')->controller(\App\Http\Controllers\Steps
     Route::post('/new', 'store');
     Route::get('/{step:id}/edit', 'edit')->name('edit');
     Route::post('/{step:id}/edit', 'update');
+    Route::delete('/{step:id}', 'destroy')->name('destroy');
 });
 
 
