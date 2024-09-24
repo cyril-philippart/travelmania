@@ -21,6 +21,19 @@
                       <a @class(['nav-link', 'active' => request()->route()->getName() === 'voyage.index' ]) aria-current="page" href="{{route('voyage.index')}}">Liste des voyages</a>
                   </li>
               </ul>
+              <div class="d-flex align-items-center">
+                @auth
+                  <em class="text-white">Bonjour {{ \Illuminate\Support\Facades\Auth::user()->name }}</em>
+                  <form class="nav-item" action="{{ route('auth.logout') }}" method="post">
+                    @method('delete')
+                    @csrf
+                    <button class="btn btn-outline-light ms-4">Se deconnecter</button>
+                  </form>
+                @endauth
+                @guest
+                  <a class="btn btn-outline-light me-2" href="{{ route('login') }}">Se connecter</a>
+                @endguest
+              </div>
           </div>
       </div>
   </nav>

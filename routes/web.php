@@ -2,40 +2,33 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::delete('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('auth.logout');
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'goLogin']);
+
 Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\TripController::class)->group(function() {
     Route::get('/', 'index')->name('index');
-    Route::get('/new', 'create')->name('create');
-    Route::post('/new', 'store');
-    Route::get('/{trip:slug}/edit', 'edit')->name('edit');
-    Route::post('/{trip:slug}/edit', 'update');
-    Route::get('/{trip:slug}', 'show')->name('show');
-    Route::delete('/{trip:slug}', 'destroy')->name('destroy');
+    
+    Route::middleware('auth')->group(function() {
+        Route::get('/new', 'create')->name('create');
+        Route::post('/new', 'store');
+        Route::get('/{trip:slug}/edit', 'edit')->name('edit');
+        Route::post('/{trip:slug}/edit', 'update');
+        Route::get('/{trip:slug}', 'show')->name('show');
+        Route::delete('/{trip:slug}', 'destroy')->name('destroy');
+    });
 });
 
 Route::prefix('/etapes')->name('etape.')->controller(\App\Http\Controllers\StepsController::class)->group(function() {
-    Route::get('/new', 'create')->name('create');
-    Route::post('/new', 'store');
-    Route::get('/{step:id}/edit', 'edit')->name('edit');
-    Route::post('/{step:id}/edit', 'update');
-    Route::delete('/{step:id}', 'destroy')->name('destroy');
+    Route::middleware('auth')->group(function() {
+        Route::get('/new', 'create')->name('create');
+        Route::post('/new', 'store');
+        Route::get('/{step:id}/edit', 'edit')->name('edit');
+        Route::post('/{step:id}/edit', 'update');
+        Route::delete('/{step:id}', 'destroy')->name('destroy');
+    });
 });
-
-
-
-
-Route::get('/dashboard')->uses([\App\Http\Controllers\DashboardController::class, 'index']);
