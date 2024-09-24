@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Trip;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +24,11 @@ Route::prefix('/voyages')->name('voyage.')->controller(\App\Http\Controllers\Tri
     Route::get('/{trip:slug}/edit', 'edit')->name('edit');
     Route::post('/{trip:slug}/edit', 'update');
     Route::get('/{trip:slug}', 'show')->name('show');
+});
+
+Route::prefix('/etapes')->name('etape.')->controller(\App\Http\Controllers\StepsController::class)->group(function() {
+    Route::get('/new', 'create')->name('create');
+    Route::post('/new', 'store');
 });
 
 

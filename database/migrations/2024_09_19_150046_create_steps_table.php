@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('departure', 100);
             $table->string('arrival', 100);
             $table->string('seat', 100)->nullable();
-            $table->string('gate', 100);
+            $table->string('gate', 100)->nullable();
             $table->string('baggage_drop', 100)->nullable();
             $table->timestamps();
         });

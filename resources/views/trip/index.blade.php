@@ -3,7 +3,6 @@
 @section('content')
     <h1>Liste des Voyages</h1>
     @foreach ($trips as $trip)
-    @dump($trips)
         <div>
             <h2>{{ $trip->title }}</h2>
             <p>

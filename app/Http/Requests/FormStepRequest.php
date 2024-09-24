@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FormPostRequest extends FormRequest
+class FormStepRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,14 @@ class FormPostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'unique:trips']
+            'type'=> ['required', 'string'],
+            'number' => ['required', 'string'],
+            'departure' => ['required', 'string'],
+            'arrival' => ['required', 'string'],
+            'seat' => ['nullable', 'string'],
+            'gate' => ['nullable', 'string'],
+            'baggage_drop' => ['nullable', 'string'],
+            'trips_id' => ['required', 'integer','exists:trips,id']
         ];
     }
 }

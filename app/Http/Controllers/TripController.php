@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FormPostRequest;
+use App\Http\Requests\FormTripRequest;
 use App\Models\Trips;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
@@ -18,12 +18,12 @@ class TripController extends Controller
         ]);
     }
     
-    public function store(FormPostRequest $request)
+    public function store(FormTripRequest $request)
     {
         $validatedData = $request->validated();
         $validatedData['slug'] = Str::slug($validatedData['title']);
         $trip = Trips::create($validatedData);
-        return redirect()->route('voyage.show', ['trip' => $trip->slug])->with('success', 'Voyage créé avec succès');
+        return redirect()->route('etape.create', ['trip' => $trip]);
     }
 
     public function edit(Trips $trip) 
@@ -33,7 +33,7 @@ class TripController extends Controller
         ]);
     }
 
-    public function update(Trips $trip, FormPostRequest $request) 
+    public function update(Trips $trip, FormTripRequest $request) 
     {
         $trip->update($request->validated());
         return redirect()->route('voyage.show', ['trip' => $trip->title])->with('success', 'Voyage modifié avec succès');
@@ -48,7 +48,6 @@ class TripController extends Controller
 
     public function show(Trips $trip): View
     {
-        dd($trip);
         return view('trip.show', [
             'trip' => $trip
         ]);
