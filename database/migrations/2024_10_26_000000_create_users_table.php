@@ -22,6 +22,10 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::table('trips', function (Blueprint $table) {
+            $table->foreignIdFor(\App\Models\User::class)->constrained()->cascadeOnDelete();
+        });
     }
 
     /**
@@ -31,6 +35,11 @@ return new class extends Migration
      */
     public function down()
     {
+
+        Schema::table('trips', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
+        
         Schema::dropIfExists('users');
     }
 };

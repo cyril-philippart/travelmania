@@ -6,6 +6,7 @@ use App\Http\Requests\FormTripRequest;
 use App\Models\Trips;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class TripController extends Controller
 {
@@ -22,6 +23,7 @@ class TripController extends Controller
     {
         $validatedData = $request->validated();
         $validatedData['slug'] = Str::slug($validatedData['title']);
+        $validatedData['user_id'] = Auth::id();
         $trip = Trips::create($validatedData);
         return redirect()->route('etape.create', ['trip' => $trip]);
     }

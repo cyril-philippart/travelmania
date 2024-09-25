@@ -36,13 +36,15 @@
                             <td>{{ $step->baggage_drop }}</td>
                             @auth
                                 <td>
-                                    <a class="btn btn-warning btn-sm" href="{{ route('etape.edit', ['trip' => $trip->id, 'step' => $step->id]) }}">Modifier</a>
-                                    <form action="{{ route('etape.destroy', ['trip' => $trip->id, 'step' => $step->id]) }}" method="post" class="d-inline">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette étape ?')">Supprimer</button>
-                                    </form>
-                                </td> 
+                                    @if(Auth::id() === $trip->user_id || Auth::user()->hasRole('admin'))
+                                        <a class="btn btn-warning btn-sm" href="{{ route('etape.edit', ['trip' => $trip->id, 'step' => $step->id]) }}">Modifier</a>
+                                        <form action="{{ route('etape.destroy', ['trip' => $trip->id, 'step' => $step->id]) }}" method="post" class="d-inline">
+                                            @csrf
+                                            @method('delete')
+                                            <button class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette étape ?')">Supprimer</button>
+                                        </form>
+                                    @endif
+                                </td>
                             @endauth
                         </tr>      
                     </tbody>
@@ -51,8 +53,10 @@
         </div>
     @endforeach
     @auth
-        <div class="text-center mt-4">
-            <a class="btn btn-success" href="{{ route('etape.create', ['trip' => $trip->id]) }}">Ajouter une étape</a>
-        </div>
+        @if(Auth::id() === $trip->user_id || Auth::user()->hasRole('admin'))
+            <div class="text-center mt-4">
+                <a class="btn btn-success" href="{{ route('etape.create', ['trip' => $trip->id]) }}">Ajouter une étape</a>
+            </div>
+        @endif
     @endauth
 @endsection

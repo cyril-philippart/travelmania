@@ -12,10 +12,16 @@ class Trips extends Model
     protected $fillable = [
         'title',
         'slug',
+        'user_id'
     ];
 
     public function steps()
     {
         return $this->hasMany(Steps::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

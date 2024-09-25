@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class AuthController extends Controller
 {
@@ -43,14 +46,18 @@ class AuthController extends Controller
 
     public function goRegister(RegisterRequest $request)
     {
-        // Crée un nouvel utilisateur
+        $role = Role::firstOrCreate(['name' => 'admin']);
+        $permission = Permission::firstOrCreate(['name' => 'all']);
+        if (!$role->hasPermissionTo($permission)) {
+            $role->givePermissionTo($permission);
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        Auth::login($user);
+        $assignRole = $user->assignRole('admin');
+        return redirect()->route('voyage.index')->with('success', 'Inscription réussie, vous pouvez vous connecter.');
 
-        return redirect()->route('voyage.index');
     }
 }

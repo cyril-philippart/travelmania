@@ -32,6 +32,7 @@
                 @endauth
                 @guest
                   <a class="btn btn-outline-light me-2" href="{{ route('login') }}">Se connecter</a>
+                  <a class="btn btn-outline-light me-2" href="{{ route('register') }}">S'inscrire</a>
                 @endguest
               </div>
           </div>

@@ -23,14 +23,16 @@
                     <a class="btn btn-dark" href="{{ route('voyage.show', ['trip' => $trip->slug]) }}">Voir</a>
                 </p>
                 @auth
-                    <p class="card-text mb-0 me-2">
-                        <a class="btn btn-warning" href="{{ route('voyage.edit', ['trip' => $trip->slug]) }}">Modifier</a>
-                    </p>
-                    <form action="{{ route('voyage.destroy', ['trip' => $trip->slug]) }}" method="post" class="d-inline">
-                        @csrf
-                        @method('delete')
-                        <button class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce voyage ?')">Supprimer</button>
-                    </form>
+                    @if(Auth::id() === $trip->user_id || Auth::user()->hasRole('admin'))
+                        <p class="card-text mb-0 me-2">
+                            <a class="btn btn-warning" href="{{ route('voyage.edit', ['trip' => $trip->slug]) }}">Modifier</a>
+                        </p>
+                        <form action="{{ route('voyage.destroy', ['trip' => $trip->slug]) }}" method="post" class="d-inline">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce voyage ?')">Supprimer</button>
+                        </form>
+                    @endif
                 @endauth
             </div>
         </div>

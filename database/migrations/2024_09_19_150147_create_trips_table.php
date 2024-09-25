@@ -21,6 +21,8 @@ return new class extends Migration
         Schema::table('steps', function (Blueprint $table) {
             $table->foreignIdFor(\App\Models\Trips::class)->nullable()->constrained()->cascadeOnDelete();
         });
+
+       
     }
 
     /**
@@ -31,6 +33,7 @@ return new class extends Migration
         Schema::table('steps', function (Blueprint $table) {
             $table->dropForeign(['trips_id']);
         });
+
         Schema::dropIfExists('trips');
     }
 };
