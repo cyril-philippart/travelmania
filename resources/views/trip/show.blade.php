@@ -4,29 +4,31 @@
     <div class="text-center mb-4">
         <h2>{{ $trip->title }}</h2>
     </div>
-    @foreach ($steps as $step)
-        <div class="card mb-5">
-            <div class="card-header">
-                <h5>Etape {{ $loop->iteration }}</h5>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5>Étapes du voyage</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Type</th>
+                        <th>Numéro</th>
+                        <th>Départ</th>
+                        <th>Arrivée</th>
+                        <th>Siège</th>
+                        <th>Porte</th>
+                        <th>Enregistrement des bagages</th>
+                        @auth
+                            <th>Actions</th>
+                        @endauth
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($steps as $index => $step) <!-- Utilise $index pour le numéro d'étape -->
                         <tr>
-                            <th>Type</th>
-                            <th>Numéro</th>
-                            <th>Départ</th>
-                            <th>Arrivée</th>
-                            <th>Siège</th>
-                            <th>Porte</th>
-                            <th>Enregistrement des bagages</th>
-                            @auth
-                                <th>Actions</th>
-                            @endauth
-                        </tr>
-                    </thead>
-                    <tbody>                    
-                        <tr>
+                            <td>{{ $index + 1 }}</td> <!-- Incrémentation du numéro d'étape -->
                             <td>{{ $step->type }}</td>
                             <td>{{ $step->number }}</td>
                             <td>{{ $step->departure }}</td>
@@ -46,12 +48,12 @@
                                     @endif
                                 </td>
                             @endauth
-                        </tr>      
-                    </tbody>
-                </table>
-            </div>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    @endforeach
+    </div>
     @auth
         @if(Auth::id() === $trip->user_id || Auth::user()->hasRole('admin'))
             <div class="text-center mt-4">

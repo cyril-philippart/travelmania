@@ -46,7 +46,7 @@ class AuthController extends Controller
 
     public function goRegister(RegisterRequest $request)
     {
-        $role = Role::firstOrCreate(['name' => 'admin']);
+        $role = Role::firstOrCreate(['name' => 'user']);
         $permission = Permission::firstOrCreate(['name' => 'all']);
         if (!$role->hasPermissionTo($permission)) {
             $role->givePermissionTo($permission);
@@ -56,7 +56,7 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        $assignRole = $user->assignRole('admin');
+        $assignRole = $user->assignRole('user');
         return redirect()->route('voyage.index')->with('success', 'Inscription réussie, vous pouvez vous connecter.');
 
     }
